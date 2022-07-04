@@ -2,16 +2,15 @@
   <strong><%= link_to "⚡️ ZigZag ⚡️", root_path %></strong>
   &nbsp;&nbsp;&nbsp;&nbsp;
 
-  <% if user_signed_in? %>
-    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-  <% else %>
-    <%= link_to "Sign In", new_user_session_path %>
-    <%= link_to "Sign Up", new_user_registration_path %>
-  <% end %>
-
-  &nbsp;&nbsp;&nbsp;&nbsp;
-
   <%= link_to "Posts", posts_path %>
 
-  <span style="float: right">Hello there <%= current_user ? current_user.username : "friend" %></span>
+  <span style="float: right">Hello there <%= current_user ? current_user.username : "friend" %> | 
+  <% if user_signed_in? %>
+    <%= link_to 'New Post', new_post_path %> | 
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Sign In", new_user_session_path %> or
+    <%= link_to "Sign Up", new_user_registration_path %> to make a post
+  <% end %>
+  </span>
 </nav>
