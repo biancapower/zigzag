@@ -21,7 +21,12 @@
     <%= form.text_area :body %>
   </div>
 
-  <div class="field"  <div class="actions">
+  <div class="field">
+    <%= form.label :list %>
+    <%= form.collection_select :list_id, List.order(:name), :id, :name %>
+  </div>
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
