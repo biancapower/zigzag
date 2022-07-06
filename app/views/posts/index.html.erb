@@ -4,6 +4,7 @@
   <h1><%= link_to post.title, post_path(post) %></h1>
   <p><%= post.body %></p>
   <p>by @<%= post.user.username %></p>
+  <p>on the <em><%= link_to post.list.name, list_path(post.list) %></em> list</p>
   <% if user_signed_in? && post.user_id == current_user.id %>
     <p>
     <%= link_to 'Edit', edit_post_path(post) %>

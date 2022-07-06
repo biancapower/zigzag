@@ -1,5 +1,7 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :authorize_user, only: %i[ edit update destroy ]
 
   # GET /lists or /lists.json
   def index
@@ -58,6 +60,14 @@ class ListsController < ApplicationController
   end
 
   private
+    # Checks current_user owns the post
+    def authorize_user 
+      if @list.user_id != current_user.id
+        flash[:alert] = "You don't have permission to do that!"
+        redirect_to lists_path
+      end 
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_list
       @list = List.find(params[:id])

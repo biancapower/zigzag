@@ -1,19 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @list.name %>
-</p>
+<span>
+  <% if user_signed_in? && @list.user_id == current_user.id %>
+    <%= link_to 'Edit', edit_list_path(@list) %>
+  <% end %>
 
-<p>
-  <strong>Description:</strong>
+  <h1>
+    <%= @list.name %>
+  </h1>
+
+  <p>
   <%= @list.description %>
-</p>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @list.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_list_path(@list) %> |
-<%= link_to 'Back', lists_path %>
+  <p>
+  @<%= @list.user.username %>
+  </p>
+</span>
+<span>
+  <% @list.posts.each do |post| %>
+    <div style="border: 1px dotted black; padding: 1em; margin: 1em; width: 40%;">
+      <h4><%= link_to post.title, post_path(post) %></h4>
+      <p><%= post.body %></p>
+      <p>by @<%= post.user.username %></p>
+    </div>
+  <% end %>
+</span>
